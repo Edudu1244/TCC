@@ -14,11 +14,10 @@ app.use(cors());
 app.use(express.json());
 
 // 3. DEFINIÇÃO DAS ROTAS DA API
-app.use("/auth", authRoutes); // Escuta /auth/register e /auth/login
+app.use("/auth", authRoutes); 
 app.use("/api", simulationRoutes);
 
 // 4. ROTA INICIAL DE TESTE
-// 4. ROTA INICIAL DE TESTE ORIGINAL
 app.get("/", (req, res) => {
     res.send("🚀 Servidor funcionando!");
 });
@@ -40,7 +39,6 @@ db.serialize(() => {
     `);
 
     // Tabela de Países
-   // Tabela de Países (Corrigido o nome da coluna no INSERT)
     db.run(`
         CREATE TABLE IF NOT EXISTS countries (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -52,12 +50,15 @@ db.serialize(() => {
     `, () => {
         db.get("SELECT COUNT(*) as total FROM countries", (err, row) => {
             if (!err && row.total === 0) {
-                // Aqui foi corrigido para "dificuldade"
                 const stmt = db.prepare("INSERT INTO countries (nome, custo_vida, qualidade_vida, dificuldade) VALUES (?, ?, ?, ?)");
                 stmt.run("Canadá", 8, 9, 6);
                 stmt.run("Portugal", 6, 7, 4);
                 stmt.run("Estados Unidos", 9, 8, 8);
-                stmt.run("EUA", 9, 8, 8);
+                stmt.run("França", 7, 8, 6);
+                stmt.run("Japão", 8, 9, 7);
+                stmt.run("Alemanha", 7, 8, 5);
+                stmt.run("Austrália", 8, 8, 6);
+                stmt.run("Suíça", 10, 10, 8);
                 stmt.finalize();
                 console.log("ℹ️ Tabela de países populada com sucesso!");
             }

@@ -1,0 +1,241 @@
+/* =========================
+   RESET E CONFIGURAÇÕES
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("img/fundo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    display: flex;
+    transition: 0.5s ease;
+}
+
+/* =========================
+   ESTRUTURA DO PAINEL (GRID)
+========================= */
+.panel-container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    backdrop-filter: blur(8px);
+}
+
+/* BARRA LATERAL */
+.sidebar {
+    width: 320px;
+    background: rgba(255, 255, 255, 0.08);
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-panel {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.welcome-msg {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 40px;
+}
+
+.welcome-msg span {
+    color: #7fb0ff;
+    font-weight: 600;
+}
+
+/* CONTEÚDO PRINCIPAL */
+.main-content {
+    flex: 1;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.content-header {
+    margin-bottom: 40px;
+}
+
+.content-header h2 {
+    font-size: 36px;
+    margin-bottom: 8px;
+}
+
+.content-header p {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* =========================
+   FORMULÁRIOS E INPUTS
+========================= */
+.input-group {
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.input-group select {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.input-group select option {
+    color: black;
+}
+
+/* BOTÕES */
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#btnSimular {
+    background: #2d7eff;
+    color: white;
+}
+
+#btnSimular:hover {
+    background: #1d65db;
+    transform: scale(1.02);
+}
+
+.btn-logout {
+    background: transparent;
+    border: 1px solid rgba(255, 61, 61, 0.4);
+    color: #ff6b6b;
+    margin-top: auto;
+}
+
+.btn-logout:hover {
+    background: rgba(255, 61, 61, 0.15);
+    border-color: #ff3d3d;
+}
+
+/* =========================
+   CARDS DE RESULTADOS
+========================= */
+.dashboard-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 800px;
+}
+
+.score-box {
+    background: rgba(45, 126, 255, 0.2);
+    border: 1px solid rgba(45, 126, 255, 0.3);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.score-box h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.score-box h2 {
+    font-size: 48px;
+    color: #6bff95;
+    font-weight: 700;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.result-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 20px 25px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.card-icon {
+    font-size: 32px;
+}
+
+.card-label {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.result-card strong {
+    font-size: 18px;
+    color: white;
+}
+
+#msgStatus {
+    margin-top: 20px;
+    font-weight: 500;
+}
+
+/* =========================
+   DARK MODE BUTTON E ADAPTAÇÕES
+========================= */
+#themeToggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    width: auto;
+    padding: 0;
+    font-size: 32px;
+    z-index: 9999;
+}
+
+body.dark {
+    background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url("img/fundo.jpg");
+    background-size: cover;
+}
+
+body.dark .sidebar { background: rgba(0, 0, 0, 0.4); }
+body.dark .result-card { background: rgba(0, 0, 0, 0.2); }
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+    .panel-container { flex-direction: column; }
+    .sidebar { width: 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); }
+    .btn-logout { margin-top: 20px; }
+    .main-content { padding: 30px 20px; }
+    .details-grid { grid-template-columns: 1fr; }
+}

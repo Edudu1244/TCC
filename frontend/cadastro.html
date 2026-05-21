@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - SMLDP</title>
+    <link rel="stylesheet" href="cadastro.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <button id="themeToggle">🌙</button>
+
+    <section class="cadastro">
+        <div class="cadastro-box">
+            <a href="login.html" class="back-btn">← Voltar para o Login</a>
+
+            <div class="logo">🌎</div>
+
+            <h1>Crie sua Conta</h1>
+            <p>Preencha os dados abaixo para começar a simular</p>
+
+            <form id="formCadastro">
+                <div class="input-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" placeholder="Digite seu nome" required>
+                </div>
+
+                <div class="input-group" style="display: flex; gap: 15px;">
+                    <div style="flex: 1;">
+                        <label for="idade">Idade</label>
+                        <input type="number" id="idade" min="1" max="120" placeholder="Ex: 25" required>
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="sexo">Sexo</label>
+                        <select id="sexo" required>
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group" style="display: flex; gap: 15px;">
+                    <div style="flex: 1;">
+                        <label for="profissao">Profissão</label>
+                        <input type="text" id="profissao" placeholder="Ex: Desenvolvedor" required>
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="paisAtual">País Atual</label>
+                        <input type="text" id="paisAtual" placeholder="Ex: Brasil" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Digite seu melhor email" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" placeholder="Crie uma senha segura" required>
+                </div>
+
+                <button type="submit" id="btnCadastrar">Cadastrar</button>
+            </form>
+
+            <div class="register-link" style="margin-top: 25px; color: rgba(255,255,255,0.8);">
+                <p>
+                    Já tem uma conta? <a href="login.html" style="color: #7fb0ff; text-decoration: none; font-weight: 600;">Fazer Login</a>
+                </p>
+            </div>
+
+            <p id="mensagem"></p>
+        </div>
+    </section>
+
+    <script src="cadastro.js"></script>
+</body>
+</html>

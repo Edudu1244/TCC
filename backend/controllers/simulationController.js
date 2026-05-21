@@ -1,89 +1,79 @@
 const db = require("../config/database");
 
 const calcularSimulacao = (req, res) => {
-    // 1. O país e os dados vêm do corpo da requisição
-    const { idade, profissao, salario, paisDestino } = req.body;
-    
-    // 2. O ID do usuário agora vem direto e seguro do TOKEN validado pelo middleware!
-    const userId = req.usuarioLogado.id;
+    // 1. Pega o país vindo do corpo da requisição de simulação
+    const { paisDestino } = req.body;
+    const usuarioLogado = req.usuarioLogado; // Injetado pelo verificarToken
 
-    if (!idade || !profissao || !salario || !paisDestino) {
+    if (!paisDestino) {
         return res.status(400).json({
             success: false,
-            message: "Preencha todos os campos obrigatórios"
+            message: "Por favor, selecione um país para simular."
         });
     }
 
-    // [O RESTO DO SEU CÓDIGO DO CONTROLLER CONTINUA IGUAL...]
-    // Ele vai rodar a query no banco, calcular o score e salvar o histórico usando esse userId seguro.
-    // 🔍 BUSCA O PAÍS DIRETO NO BANCO DE DADOS
-    const queryPais = "SELECT * FROM countries WHERE nome = ?";
-    
-    db.get(queryPais, [paisDestino], (err, paisEncontrado) => {
+    // 2. Faz o SELECT no banco SQLite buscando o país pelo nome de forma insensível a maiúsculas/minúsculas
+    const query = "SELECT * FROM countries WHERE LOWER(nome) = LOWER(?)";
+
+    db.get(query, [paisDestino], (err, row) => {
         if (err) {
-            return res.status(500).json({ success: false, message: "Erro ao buscar dados do país" });
+            console.error("Erro ao consultar o banco:", err);
+            return res.status(500).json({
+                success: false,
+                message: "Erro interno ao processar a simulação."
+            });
         }
 
-        if (!paisEncontrado) {
-            return res.status(404).json({ success: false, message: "País destino não cadastrado no sistema" });
+        if (!row) {
+            return res.status(404).json({
+                success: false,
+                message: "Dados deste país ainda não foram cadastrados no simulador."
+            });
         }
 
-        const { custo_vida, qualidade_vida, dificuldade } = paisEncontrado;
-
-        // 🧠 ALGORITMO DE SCORE DINÂMICO
-        // Exemplo: Se o salário do usuário for alto, reduz o peso do custo de vida
-        let ajusteSalario = salario > 10000 ? 2 : 0;
+        /* 3. LÓGICA DE SIMULAÇÃO MATEMÁTICA REAL
+           Calcula o score de aproveitamento de 0 a 100%
+           Fórmula balanceada: (Qualidade de Vida elevado / Custo e Dificuldade atenuados)
+        */
+        const pesoQualidade = row.qualidade_vida * 1.5;
+        const pesoCusto = row.custo_vida * 0.8;
+        const pesoDificuldade = row.dificuldade * 0.7;
         
-        const scoreFinal = (qualidade_vida * 2) - (custo_vida + dificuldade) + ajusteSalario;
+        let scoreFinal = Math.round(((pesoQualidade * 10) / (pesoCusto + pesoDificuldade)) * 10);
         
-        let resultado = "Indefinido";
-        if (scoreFinal >= 12) resultado = "Alta chance de adaptação";
-        else if (scoreFinal >= 8) resultado = "Chance média";
-        else resultado = "Baixa chance";
+        // Garante travas limites de margem de exibição percentual
+        if (scoreFinal > 100) scoreFinal = 100;
+        if (scoreFinal < 0) scoreFinal = 0;
 
-        const respostaDados = {
-            paisDestino,
-            custoVida: custo_vida,
-            qualidadeVida: qualidade_vida,
-            dificuldade,
-            scoreFinal,
-            resultado
-        };
+        // Determinação de Diagnóstico Comportamental
+        let resultadoTexto = "";
+        if (scoreFinal >= 80) {
+            resultadoTexto = "Altamente Recomendável! Excelente balanço entre qualidade e desenvolvimento.";
+        } else if (scoreFinal >= 50) {
+            resultadoTexto = "Viável, mas exige planejamento financeiro sólido e atenção aos custos.";
+        } else {
+            resultadoTexto = "Complexo. Barreiras imigratórias severas ou custo de vida desproporcional.";
+        }
 
-        // 💾 SALVA NO HISTÓRICO SE O USUÁRIO ESTIVER LOGADO (Passando o userId)
-        if (userId) {
-            const querySalvar = `
-                INSERT INTO simulations (user_id, pais_destino, custo_vida, qualidade_vida, dade, score_final, resultado)
+        // 4. Salva a simulação no Histórico do banco de dados (Opcional, mas amarra a tabela 'simulations')
+        if (usuarioLogado && usuarioLogado.id) {
+            const insereHistorico = `
+                INSERT INTO simulations (user_id, pais_destino, custo_vida, qualidade_vida, dificuldade, score_final, resultado)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
             `;
-
-            db.run(querySalvar, [
-                userId,
-                paisDestino,
-                custo_vida,
-                qualidade_vida,
-                dificuldade,
-                scoreFinal,
-                resultado
-            ], function(err) {
-                if (err) {
-                    console.log("❌ Erro ao salvar histórico:", err);
-                }
-                
-                // Retorna os dados + o ID da simulação salva
-                return res.json({
-                    success: true,
-                    simulationId: this.lastID,
-                    ...respostaDados
-                });
-            });
-        } else {
-            // Se for uma simulação anônima (sem login), apenas retorna o cálculo
-            return res.json({
-                success: true,
-                ...respostaDados
-            });
+            db.run(insereHistorico, [usuarioLogado.id, row.nome, row.custo_vida, row.qualidade_vida, row.dificuldade, scoreFinal, resultadoTexto]);
         }
+
+        // 5. Retorna a resposta limpa e mapeada perfeitamente com os ID's do Front-End
+        return res.json({
+            success: true,
+            paisDestino: row.nome,
+            custoVida: row.custo_vida,
+            qualidadeVida: row.qualidade_vida,
+            dificuldade: row.dificuldade,
+            scoreFinal: scoreFinal,
+            resultado: resultadoTexto
+        });
     });
 };
 
