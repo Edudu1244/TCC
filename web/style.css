@@ -1,0 +1,428 @@
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =========================
+   BODY
+========================= */
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f5f5f5;
+    overflow-x: hidden;
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* OVERLAY GLOBAL */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: -1;
+    transition: background 0.5s ease;
+}
+
+body.dark::before {
+    background: rgba(0, 0, 0, 0.75);
+}
+
+/* =========================
+   HERO (Seção Principal)
+========================= */
+
+.hero {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url("img/fundo.jpg");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 40px 40px 40px; /* Ajustado espaço para a navbar */
+}
+
+/* OVERLAY BACKGROUND */
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+/* =========================
+   CONTAINER Centralizado
+========================= */
+
+.container {
+    width: 100%;
+    max-width: 1000px; /* Reduzido para centralizar melhor o texto */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* =========================
+   LEFT CONTENT (Agora Conteúdo Central)
+========================= */
+
+.left-content {
+    width: 100%;
+    color: white;
+    text-align: center; /* Centraliza todos os textos */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza os blocos internos */
+}
+
+.logo {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+.left-content h3 {
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+}
+
+.left-content h1 {
+    font-size: 75px;
+    line-height: 85px;
+    margin: 15px 0 25px 0;
+    font-weight: 800;
+}
+
+.left-content h1 span {
+    color: #2d7eff;
+}
+
+.left-content p {
+    max-width: 700px;
+    font-size: 20px;
+    line-height: 34px;
+    margin-bottom: 45px;
+}
+
+/* =========================
+   CARDS (Alinhados no Centro)
+========================= */
+
+.cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+.card {
+    width: 220px; /* Um pouco mais largo para melhor leitura */
+    padding: 25px 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s, background-color 0.4s;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+.icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+}
+
+.card h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.card p {
+    font-size: 13px;
+    line-height: 20px;
+    margin: 0;
+    opacity: 0.9;
+}
+
+/* =========================
+   BOTÃO PRINCIPAL
+========================= */
+
+.btn-simular {
+    display: inline-block;
+    padding: 20px 45px;
+    background: #2d7eff;
+    color: white;
+    border-radius: 50px; /* Estilo pílula moderno */
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 25px rgba(45, 126, 255, 0.3);
+    transition: 0.3s;
+}
+
+.btn-simular:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(45, 126, 255, 0.5);
+    background: #1a6fff;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+}
+
+.logo-nav {
+    color: white;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 35px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #2d7eff;
+}
+
+/* =========================
+   DARK MODE BUTTON
+========================= */
+
+#themeToggle {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 99999;
+    transition: 0.3s;
+}
+
+#themeToggle:hover {
+    transform: scale(1.15) rotate(15deg);
+}
+
+/* =========================
+   PAÍSES (Seção debaixo)
+========================= */
+
+.countries {
+    padding: 100px 60px;
+    background: #f5f5f5;
+    transition: 0.4s;
+}
+
+.countries-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.countries-title h2 {
+    font-size: 38px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.countries-title p {
+    color: #666;
+    font-size: 18px;
+}
+
+.countries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.country-card {
+    padding: 35px 30px;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.4s;
+}
+
+.country-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.country-card h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.country-card p {
+    color: #555;
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 20px;
+}
+
+.country-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+    color: #2d7eff;
+}
+
+/* =========================
+   DARK MODE ADAPTAÇÕES
+========================= */
+
+body.dark {
+    background: #050505;
+}
+
+body.dark .overlay {
+    background: rgba(0, 0, 0, 0.75);
+}
+
+body.dark .card {
+    background: rgba(0, 0, 0, 0.35);
+}
+
+body.dark .countries {
+    background: #0f0f0f;
+}
+
+body.dark .country-card {
+    background: #1a1a1a;
+    color: white;
+}
+
+body.dark .country-card p {
+    color: #bbb;
+}
+
+body.dark .countries-title h2 {
+    color: white;
+}
+
+body.dark .countries-title p {
+    color: #aaa;
+}
+
+/* =========================
+   RESPONSIVO (Mobile e Tablet)
+========================= */
+
+@media (max-width: 992px) {
+    .left-content h1 {
+        font-size: 55px;
+        line-height: 65px;
+    }
+    
+    .left-content p {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 20px 30px;
+    }
+
+    .nav-links {
+        display: none; /* Oculta menu no mobile */
+    }
+
+    .hero {
+        padding: 40px 20px;
+    }
+
+    .left-content h1 {
+        font-size: 40px;
+        line-height: 48px;
+    }
+
+    .left-content h3 {
+        font-size: 18px;
+        letter-spacing: 4px;
+    }
+
+    .left-content p {
+        font-size: 16px;
+        line-height: 26px;
+    }
+
+    .card {
+        width: 100%; /* Cards empilhados no mobile */
+        max-width: 280px;
+    }
+
+    .countries {
+        padding: 60px 20px;
+    }
+}
+/* Estilização para o botão de Login na Navbar */
+.nav-login-btn {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 8px 20px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(5px);
+    transition: 0.3s ease;
+}
+
+.nav-login-btn:hover {
+    background: #2d7eff !important;
+    color: white !important;
+    border-color: #2d7eff;
+    box-shadow: 0 5px 15px rgba(45, 126, 255, 0.4);
+}
+
+/* Garante que no modo Dark o grupo do menu fique visível */
+body.dark .nav-login-btn {
+    background: rgba(255, 255, 255, 0.05);
+}

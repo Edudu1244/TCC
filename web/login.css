@@ -1,0 +1,345 @@
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =========================
+   BODY
+========================= */
+
+body {
+
+    position: relative;
+
+    font-family: 'Poppins', sans-serif;
+
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+        url("img/fundo.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    overflow-x: hidden;
+
+    transition: 0.5s ease;
+}
+
+/* OVERLAY */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,0.45);
+
+    z-index: -1;
+
+    transition: 0.5s ease;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.login {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.login-box {
+
+    width: 100%;
+    max-width: 430px;
+
+    padding: 45px;
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    color: white;
+
+    background: rgba(255,255,255,0.1);
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    backdrop-filter: blur(20px);
+
+    box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+
+    transition: 0.5s ease;
+}
+
+/* =========================
+   LOGO
+========================= */
+
+.logo {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+/* =========================
+   TÍTULO
+========================= */
+
+.login-box h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+/* TEXTO */
+
+.login-box p {
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 25px;
+}
+
+/* =========================
+   INPUT GROUP
+========================= */
+
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+/* LABEL */
+
+.input-group label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* INPUT */
+
+.input-group input {
+
+    width: 100%;
+
+    padding: 15px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,0.12);
+
+    color: white;
+
+    font-size: 15px;
+
+    transition: 0.4s ease;
+}
+
+/* PLACEHOLDER */
+
+.input-group input::placeholder {
+    color: rgba(255,255,255,0.6);
+}
+
+/* =========================
+   BOTÃO
+========================= */
+
+button {
+
+    width: 100%;
+
+    padding: 16px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: #2d7eff;
+
+    color: white;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    margin-top: 10px;
+
+    transition: 0.3s ease;
+}
+
+/* HOVER */
+
+button:hover {
+    transform: scale(1.03);
+    background: #1d65db;
+}
+
+/* =========================
+   LINK CADASTRO
+========================= */
+
+.register-link {
+
+    margin-top: 25px;
+
+    color: rgba(255,255,255,0.8);
+}
+
+/* LINK */
+
+.register-link a {
+
+    color: #7fb0ff;
+
+    text-decoration: none;
+
+    font-weight: 600;
+}
+
+/* =========================
+   ESQUECI SENHA
+========================= */
+
+.forgot-password {
+    margin-bottom: 15px;
+}
+
+.forgot-password a {
+
+    color: #7fb0ff;
+
+    text-decoration: none;
+
+    font-size: 14px;
+}
+
+/* =========================
+   BOTÃO VOLTAR
+========================= */
+
+.back-btn {
+
+    display: inline-block;
+
+    margin-bottom: 25px;
+
+    color: white;
+
+    text-decoration: none;
+
+    transition: 0.3s ease;
+}
+
+.back-btn:hover {
+    color: #7fb0ff;
+    transform: translateX(-5px);
+}
+
+/* =========================
+   MENSAGEM
+========================= */
+
+#mensagem {
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+/* =========================
+   DARK MODE BUTTON
+========================= */
+
+#themeToggle {
+
+    position: fixed;
+
+    top: 20px;
+    right: 20px;
+
+    background: transparent;
+    border: none;
+
+    width: auto;
+    height: auto;
+
+    padding: 0;
+    margin: 0;
+
+    color: white;
+
+    font-size: 32px;
+
+    cursor: pointer;
+
+    z-index: 99999;
+
+    line-height: 1;
+
+    transition: 0.3s ease;
+}
+
+#themeToggle:hover {
+    transform: scale(1.15) rotate(10deg);
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+body.dark::before {
+    background: rgba(0,0,0,0.75);
+}
+
+body.dark .login-box {
+    background: rgba(0,0,0,0.35);
+}
+
+body.dark input {
+    background: rgba(255,255,255,0.08);
+    color: white;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 600px) {
+
+    .login-box {
+        padding: 30px 25px;
+    }
+
+    .login-box h1 {
+        font-size: 28px;
+    }
+
+}
