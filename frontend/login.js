@@ -1,64 +1,63 @@
 document.addEventListener("DOMContentLoaded", () => {
     const formLogin = document.getElementById("formLogin");
-    const themeToggle = document.getElementById("themeToggle");
-    const msg = document.getElementById("mensagem");
+    const mensagem = document.getElementById("mensagem");
 
+    // ==========================================================
+    // SISTEMA DE TEMA AUTOMÁTICO (INVISÍVEL)
+    // ==========================================================
+    const temaSalvo = localStorage.getItem("tema");
+    if (temaSalvo === "dark") {
+        document.body.classList.add("dark");
+    }
+
+    // ==========================================================
+    // ENVIO DO FORMULÁRIO DE LOGIN (FETCH)
+    // ==========================================================
     if (formLogin) {
         formLogin.addEventListener("submit", async (event) => {
-            event.preventDefault(); 
+            event.preventDefault();
 
-            const email = document.getElementById("email").value;
-            const senha = document.getElementById("senha").value; 
+            const email = document.getElementById("email").value.trim();
+            const senha = document.getElementById("senha").value.trim();
+
+            if (!email || !senha) {
+                mensagem.innerText = "Por favor, preencha todos os campos.";
+                mensagem.style.color = "#ff6b6b";
+                return;
+            }
 
             try {
-                const response = await fetch("http://localhost:3000/auth/login", {
+                const resposta = await fetch("http://localhost:3000/auth/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({ email, senha }) 
+                    body: JSON.stringify({ email, senha })
                 });
 
-                const data = await response.json();
+                const data = await resposta.json();
 
-                if (response.ok && data.token) {
+                if (resposta.ok && data.success) {
+                    mensagem.innerText = "Login realizado com sucesso! Redirecionando...";
+                    mensagem.style.color = "#6bff95";
+
+                    // Salva as credenciais recebidas do backend para validar as simulações
                     localStorage.setItem("token", data.token);
-                    if (data.usuario) {
-                        localStorage.setItem("usuario", JSON.stringify(data.usuario));
-                    }
-
-                    msg.style.color = "#4edf7a";
-                    msg.innerText = "Login realizado com sucesso! Entrando...";
+                    localStorage.setItem("usuario", JSON.stringify(data.user));
 
                     setTimeout(() => {
                         window.location.href = "simulacao.html";
-                    }, 1200);
-
+                    }, 1500);
                 } else {
-                    msg.style.color = "#ff4d4d";
-                    msg.innerText = data.message || "Usuário ou senha incorretos.";
+                    mensagem.innerText = data.message || "E-mail ou senha incorretos.";
+                    mensagem.style.color = "#ff6b6b";
                 }
 
-            } catch (error) {
-                console.error("Erro na requisição de login:", error);
-                msg.style.color = "#ff4d4d";
-                msg.innerText = "Erro ao conectar com o servidor.";
+            } catch (erro) {
+                mensagem.innerText = "Não foi possível conectar ao servidor.";
+                mensagem.style.color = "#ff6b6b";
+                console.error("Erro no processo de login:", erro);
             }
-        });
-    }
-
-    if (themeToggle) {
-        const temaSalvo = localStorage.getItem("tema");
-        if (temaSalvo === "dark") {
-            document.body.classList.add("dark");
-            themeToggle.textContent = "☀️";
-        }
-
-        themeToggle.addEventListener("click", () => {
-            document.body.classList.toggle("dark");
-            const darkAtivo = document.body.classList.contains("dark");
-            themeToggle.textContent = darkAtivo ? "☀️" : "🌙";
-            localStorage.setItem("tema", darkAtivo ? "dark" : "light");
         });
     }
 });

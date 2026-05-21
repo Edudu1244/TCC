@@ -13,8 +13,6 @@
 
 <body>
 
-    <button id="themeToggle">🌙</button>
-
     <section class="cadastro">
         <div class="cadastro-box">
             <a href="login.html" class="back-btn">← Voltar para o Login</a>
@@ -52,9 +50,11 @@
                         <input type="text" id="profissao" placeholder="Ex: Desenvolvedor" required>
                     </div>
                     <div style="flex: 1;">
-                        <label for="paisAtual">País Atual</label>
-                        <input type="text" id="paisAtual" placeholder="Ex: Brasil" required>
-                    </div>
+                      <label for="paisAtual">País Atual</label>
+                      <select id="paisAtual" required>
+                    <option value="" disabled selected>Carregando...</option>
+     </select>
+</div>
                 </div>
 
                 <div class="input-group">

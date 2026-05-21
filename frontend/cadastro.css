@@ -150,28 +150,15 @@ button:hover {
 }
 
 /* =========================
-   DARK MODE STYLES
+   DARK MODE SYSTEM STYLES
 ========================= */
-#themeToggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 32px;
-    cursor: pointer;
-    z-index: 99999;
-    line-height: 1;
-    transition: 0.3s ease;
-}
-
-#themeToggle:hover { transform: scale(1.15) rotate(10deg); }
-
 body.dark::before { background: rgba(0,0,0,0.75); }
 body.dark .cadastro-box { background: rgba(0,0,0,0.35); }
 body.dark input, body.dark select { background: rgba(255,255,255,0.08); color: white; }
 
+/* =========================
+   RESPONSIVIDADE
+========================= */
 @media (max-width: 600px) {
     .cadastro-box { padding: 30px 25px; }
     .cadastro-box h1 { font-size: 28px; }

@@ -237,12 +237,12 @@ body.dark::before {
    DARK MODE BUTTON
 ========================= */
 #themeToggle {
-    position: fixed;
+    position: absolute;
     top: 25px;
-    right: 25px;
+    right: 15px;
     background: transparent;
     border: none;
-    font-size: 28px;
+    font-size: 30px;
     cursor: pointer;
     z-index: 99999;
     transition: 0.3s;

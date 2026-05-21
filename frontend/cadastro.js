@@ -1,8 +1,50 @@
 document.addEventListener("DOMContentLoaded", () => {
     const formCadastro = document.getElementById("formCadastro"); 
     const mensagem = document.getElementById("mensagem");
-    const themeToggle = document.getElementById("themeToggle");
+    const selectPais = document.getElementById("paisAtual"); // Captura o novo select de países
 
+    // ==========================================================
+    // SISTEMA DE TEMA AUTOMÁTICO (INVISÍVEL)
+    // ==========================================================
+    const temaSalvo = localStorage.getItem("tema");
+    if (temaSalvo === "dark") {
+        document.body.classList.add("dark");
+    }
+
+    // ==========================================================
+    // FUNÇÃO PARA CARREGAR OS PAÍSES DINAMICAMENTE DO BACKEND
+    // ==========================================================
+    async function carregarPaisesCadastro() {
+        try {
+            const response = await fetch("http://localhost:3000/api/paises");
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                // Limpa o select e define a opção padrão inicial
+                selectPais.innerHTML = '<option value="" disabled selected>Selecione seu país</option>';
+                
+                // Preenche com os países vindos do banco SQLite
+                data.paises.forEach(pais => {
+                    const option = document.createElement("option");
+                    option.value = pais.nome;
+                    option.textContent = pais.nome;
+                    selectPais.appendChild(option);
+                });
+            } else {
+                selectPais.innerHTML = '<option value="">Erro ao carregar lista</option>';
+            }
+        } catch (error) {
+            console.error("Erro ao buscar países para o cadastro:", error);
+            selectPais.innerHTML = '<option value="">Servidor offline</option>';
+        }
+    }
+
+    // Dispara a busca de países assim que a página abre
+    carregarPaisesCadastro();
+
+    // ==========================================================
+    // ENVIO DO FORMULÁRIO E INTEGRAÇÃO BACKEND
+    // ==========================================================
     if (formCadastro) {
         formCadastro.addEventListener("submit", async (event) => {
             event.preventDefault();
@@ -12,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 idade: Number(document.getElementById("idade").value), 
                 sexo: document.getElementById("sexo").value,
                 profissao: document.getElementById("profissao").value.trim(),
-                pais: document.getElementById("paisAtual").value.trim(), 
+                pais: selectPais.value, // Pega o país selecionado no select
                 email: document.getElementById("email").value.trim(),
                 senha: document.getElementById("senha").value.trim()
             };
@@ -71,27 +113,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 mensagem.innerText = "Erro ao conectar com o servidor";
                 mensagem.style.color = "#ff6b6b";
                 console.error("Erro no processo de cadastro:", erro);
-            }
-        });
-    }
-
-    if (themeToggle) {
-        const temaSalvo = localStorage.getItem("tema");
-
-        if (temaSalvo === "dark") {
-            document.body.classList.add("dark");
-            themeToggle.innerHTML = "☀️";
-        }
-
-        themeToggle.addEventListener("click", () => {
-            document.body.classList.toggle("dark");
-
-            if (document.body.classList.contains("dark")) {
-                themeToggle.innerHTML = "☀️";
-                localStorage.setItem("tema", "dark");
-            } else {
-                themeToggle.innerHTML = "🌙";
-                localStorage.setItem("tema", "light");
             }
         });
     }
