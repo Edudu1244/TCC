@@ -22,6 +22,38 @@ body {
 /* =========================
    ESTRUTURA DO PAINEL (GRID)
 ========================= */
+/* 1. Removemos a section e a box do fluxo normal para não empurrarem o layout */
+.login, .login-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+/* 2. Estilizamos e fixamos o botão exatamente em cima do "Olá, Usuário!" */
+.back-btn {
+    position: fixed; /* Deixa ele fixo na tela */
+    top: 95px;       /* Distância exata do topo para alinhar abaixo da logo */
+    left: 30px;      /* Alinhamento com a margem interna da sidebar */
+    
+    color: rgba(255, 255, 255, 0.6) !important;
+    text-decoration: none !important;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.3s ease;
+    display: inline-block;
+}
+
+/* Efeito ao passar o mouse */
+.back-btn:hover {
+    color: #2d7eff !important; /* Fica azul */
+    transform: translateX(-3px); /* Move levemente para a esquerda */
+}
+
+/* 3. Ajustamos o topo da mensagem de boas-vindas para dar espaço ao botão */
+.welcome-msg {
+    margin-top: 35px; /* Abre o espaço exato para o botão se acomodar */
+}
 .panel-container {
     display: flex;
     width: 100%;

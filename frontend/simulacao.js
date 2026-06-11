@@ -8,6 +8,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const themeToggle = document.getElementById("themeToggle");
     const msgStatus = document.getElementById("msgStatus");
 
+     // ==========================================================
+    // SISTEMA DE TEMA AUTOMÁTICO (INVISÍVEL)
+    // ==========================================================
+    const temaSalvo = localStorage.getItem("tema");
+    if (temaSalvo === "dark") {
+        document.body.classList.add("dark");
+    }
+
+
     /* ==========================================================
        1. TRAVA DE SEGURANÇA (OBRIGATÓRIO ESTAR LOGADO)
        ========================================================== */
