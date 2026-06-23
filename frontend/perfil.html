@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil - SMLDP</title>
+    <link rel="stylesheet" href="perfil.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <aside class="sidebar">
+            <div class="logo">
+                🌎 SMLDP
+            </div>
+
+            <div class="profile-mini">
+                <img src="https://i.imgur.com/2DhmtJ4.png" id="fotoPerfil" alt="Foto de Perfil">
+                <h3 id="nomeUsuario"></h3>
+            </div>
+
+           <nav class="sidebar-nav">
+              <a href="#" class="nav-item active">Dashboard</a>
+              <a href="comparacao.html" class="nav-item">Simulações</a>
+              <a href="#" class="nav-item">Metas</a>
+              <a href="#" class="nav-item">Configurações</a>
+    
+              <a href="inicial.html" class="nav-item btn-inicio">Início</a>
+              <a href="inicial.html " class="nav-item btn-sair" onclick="fazerLogout(event)">Sair da Conta</a>
+         </nav>
+        </aside>
+
+        <main class="content">
+  
+            <header class="top-bar">
+                <h1>Meu Perfil</h1>
+                <button class="btn-editar" onclick="editarPerfil()">✏️ Editar Perfil</button>
+            </header>
+
+            <section class="dados-usuario">
+                 <div class="card">
+                   <h3>🎯 Objetivo Atual</h3>
+                    <p><strong>Nome:</strong> <span id="perfilNome"></span></p>
+                    <p><strong>Idade:</strong> <span id="perfilIdade"></span> </p>
+                    <p><strong>Sexo:</strong> <span id="perfilSexo"></span></p>
+                    <p><strong>Profissão:</strong> <span id="perfilProfissao"></span></p>
+                    <p><strong>Previsão:</strong> <span id="perfilPrevisao"></span></p>
+                 </div>
+                <div class="card">
+                    <h3>📈 Progresso da Mudança</h3>
+                    <div class="barra-progresso-container">
+                        <div class="progresso-preenchimento" id="barraProgresso" style="width: 65%;">
+                            65%
+                        </div>
+                    </div>
+                    <ul class="check-status">
+                        <li>✅ Passaporte</li>
+                        <li>✅ Inglês Intermediário</li>
+                        <li>✅ Reserva Financeira</li>
+                        <li>⬜ Visto</li>
+                        <li>⬜ Moradia</li>
+                    </ul>
+                </div>
+
+            </section>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <h2 id="simulacoes">12</h2>
+                    <p>Simulações</p>
+                </div>
+                <div class="stat-card">
+                    <h2 id="comparacoes">8</h2>
+                    <p>Comparações</p>
+                </div>
+                <div class="stat-card">
+                    <h2 id="favoritos">5</h2>
+                    <p>Favoritos</p>
+                </div>
+                <div class="stat-card">
+                    <h2 id="economia">R$22.500</h2>
+                    <p>Economizado</p>
+                </div>
+            </section>
+
+            <section class="card grande">
+                <h2>💰 Meta Financeira</h2>
+                <p>Meta: R$ 50.000</p>
+                <div class="barra-progresso-container">
+                    <div class="progresso-preenchimento meta-financeira" style="width: 45%;">
+                        45%
+                    </div>
+                </div>
+            </section>
+
+            <section class="card grande">
+                <h2>❤️ Países Favoritos</h2>
+                <div class="badges-grid">
+                    <div class="badge-item">🇨🇦 Canadá</div>
+                    <div class="badge-item">🇦🇺 Austrália</div>
+                    <div class="badge-item">🇵🇹 Portugal</div>
+                    <div class="badge-item">🇳🇿 Nova Zelândia</div>
+                </div>
+            </section>
+
+            <section class="card grande">
+                <h2>📋 Checklist da Mudança</h2>
+                <div class="checklist-container">
+                    <label class="checklist-item">
+                        <input type="checkbox" checked> Passaporte
+                    </label>
+                    <label class="checklist-item">
+                        <input type="checkbox" checked> Currículo em Inglês
+                    </label>
+                    <label class="checklist-item">
+                        <input type="checkbox"> Solicitar Visto
+                    </label>
+                    <label class="checklist-item">
+                        <input type="checkbox"> Seguro Saúde
+                    </label>
+                    <label class="checklist-item">
+                        <input type="checkbox"> Comprar Passagem
+                    </label>
+                </div>
+            </section>
+
+            <section class="card grande">
+                <h2>📊 Histórico de Simulações</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>País</th>
+                                <th>Cidade</th>
+                                <th>Custo</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>🇨🇦 Canadá</td>
+                                <td>Toronto</td>
+                                <td>R$18.500</td>
+                                <td>18/06/2026</td>
+                            </tr>
+                            <tr>
+                                <td>🇦🇺 Austrália</td>
+                                <td>Sydney</td>
+                                <td>R$20.000</td>
+                                <td>15/06/2026</td>
+                            </tr>
+                            <tr>
+                                <td>🇵🇹 Portugal</td>
+                                <td>Lisboa</td>
+                                <td>R$12.000</td>
+                                <td>10/06/2026</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card grande">
+                <h2>📈 Evolução da Economia</h2>
+                <canvas id="graficoEconomia"></canvas>
+            </section>
+
+            <section class="card grande ia-card">
+                <h2>🤖 Assistente SMLDP</h2>
+                <p>
+                    Com base no seu perfil, o Canadá continua sendo a melhor opção. Seu próximo passo recomendado é iniciar o processo de visto e ampliar sua reserva financeira para R$ 50.000.
+                </p>
+            </section>
+
+            <section class="card grande">
+                <h2>🏆 Conquistas</h2>
+                <div class="badges-grid">
+                    <div class="badge-item">🥇 Primeira Simulação</div>
+                    <div class="badge-item">🌍 5 Países Comparados</div>
+                    <div class="badge-item">💰 Meta Iniciada</div>
+                    <div class="badge-item">⭐ Perfil Completo</div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="perfil.js"></script>
+</body>
+
+</html>

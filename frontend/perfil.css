@@ -1,0 +1,373 @@
+/* ==========================================================
+   CONFIGURAÇÕES DE RESET E BASE
+   ========================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #0b111e;
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+/* Proteção contra a cor roxa indesejada de links visitados */
+a, a:visited, a:hover, a:active {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+/* ==========================================================
+   ESTRUTURA CONTAINER PRINCIPAL (DASHBOARD)
+   ========================================================== */
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* ==========================================================
+   SIDEBAR (BARRA LATERAL)
+   ========================================================== */
+.sidebar {
+    width: 260px;
+    min-width: 260px;
+    background-color: #111827;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar .logo {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 35px;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+/* Container do avatar do Usuário */
+.profile-mini {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.profile-mini img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #2d7eff;
+    object-fit: cover;
+    margin-bottom: 12px;
+}
+
+.profile-mini h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.profile-mini p {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+/* Navegação interna da barra */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-item {
+    padding: 12px 18px;
+    color: #94a3b8 !important;
+    font-weight: 500;
+    font-size: 15px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Link ativo (Onde o usuário se encontra) */
+.nav-item.active {
+    background-color: #2d7eff;
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+.btn-inicio {
+    margin-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 15px;
+}
+
+/* ==========================================================
+   ÁREA DE CONTEÚDO (PAINEL DA DIREITA)
+   ========================================================== */
+.content {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    background-color: #0b111e;
+    
+    /* Impede o layout de ficar gigante ou espalhado em telas ultralargas */
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Barra superior (Título e botão) */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.top-bar h1 {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.btn-editar {
+    background-color: #2d7eff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-editar:hover {
+    background-color: #1a6fff;
+}
+
+/* ==========================================================
+   CARDS E GRIDS INTERNOS
+   ========================================================== */
+   
+.btn-toggle-sidebar:hover {
+    background: #2d7eff;
+}   
+/* Grid de Dados (Objetivo e Progresso) */
+.dados-usuario {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 25px;
+    width: 100%;
+}
+
+/* Layout Padrão dos Cards */
+.card {
+    background-color: #161f30;
+    border-radius: 16px;
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    width: 100%;
+}
+
+.card h3, .card h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.card p {
+    font-size: 15px;
+    margin-bottom: 12px;
+    color: #94a3b8;
+}
+
+.card p strong {
+    color: #ffffff;
+}
+
+/* Listas internas */
+.check-status {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.check-status li {
+    font-size: 14px;
+    color: #cbd5e1;
+}
+
+/* Barras de Rolagem / Progresso */
+.barra-progresso-container {
+    width: 100%;
+    background-color: #0b111e;
+    border-radius: 50px;
+    height: 28px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.progresso-preenchimento {
+    background-color: #10b981; /* Verde clássico do progresso */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    color: #ffffff;
+    border-radius: 50px;
+}
+
+.progresso-preenchimento.meta-financeira {
+    background-color: #2d7eff; /* Azul para a meta financeira */
+}
+
+/* Cards de Tamanho Único */
+.card.grande {
+    width: 100%;
+}
+
+/* ==========================================================
+   GRID DE METRICAS / ESTATÍSTICAS (4 COLUNAS)
+   ========================================================== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.stat-card {
+    background-color: #161f30;
+    border-radius: 16px;
+    padding: 25px 15px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.stat-card h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2d7eff !important; /* Força cor azul clara */
+    margin-bottom: 6px;
+}
+
+.stat-card p {
+    font-size: 13px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================
+   COMPONENTES ESPECÍFICOS (CHECKLIST, BADGES, TABELAS)
+   ========================================================== */
+/* Grid de Elementos Menores (Países e Conquistas) */
+.badges-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.badge-item {
+    background-color: #0b111e;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Configuração do Checklist Interativo */
+.checklist-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.checklist-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #2d7eff;
+}
+
+/* Tabelas e Containers de Histórico */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th, td {
+    padding: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 14px;
+}
+
+th {
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+td {
+    color: #cbd5e1;
+}
+
+/* Estilização Customizada do Card da IA */
+.card.grande.ia-card {
+    border-left: 4px solid #2d7eff;
+    background: linear-gradient(90deg, #161f30 0%, #1c2638 100%);
+}
+
+.card.grande.ia-card p {
+    line-height: 1.6;
+    color: #e2e8f0;
+}
+
+/* Limite máximo de altura para o Canvas do Chart.js */
+canvas {
+    width: 100% !important;
+    max-height: 280px;
+}
+
+/* ==========================================================
+   RESPONSIVIDADE (ADAPTAÇÃO AUTOMÁTICA PARA CELULARES)
+   ========================================================== */
+@media (max-width: 1024px) {
+    .dados-usuario { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .dashboard { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+    .stats-grid { grid-template-columns: 1fr; }
+    .content { padding: 20px; }
+}   

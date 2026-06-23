@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparar Países</title>
+    <link rel="stylesheet" href="comparacao.css">
+</head>
+<body>
+   
+
+    <section class="comparacao">
+
+        <h1>🌎 Comparação de Países</h1>
+
+        <div class="seletores">
+
+            <div>
+                <label>País 1</label>
+                <select id="pais1">
+                    <option value="Canadá">Canadá</option>
+                    <option value="Portugal">Portugal</option>
+                    <option value="Estados Unidos">Estados Unidos</option>
+                </select>
+            </div>
+
+            <div>
+                <label>País 2</label>
+                <select id="pais2">
+                    <option value="Canadá">Canadá</option>
+                    <option value="Portugal">Portugal</option>
+                    <option value="Estados Unidos">Estados Unidos</option>
+                </select>
+            </div>
+
+        </div>
+
+        <button onclick="comparar()">
+            Comparar Países
+        </button>
+       <div class="link-perfil">
+          <a href="perfil.html">Ir para Perfil</a>
+       </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Indicador</th>
+                    <th id="nomePais1">País 1</th>
+                    <th id="nomePais2">País 2</th>
+                </tr>
+            </thead>
+
+            <tbody id="resultado">
+            </tbody>
+        </table>
+
+    </section>
+
+    <script src="comparacao.js"></script>
+
+</body>
+</html>

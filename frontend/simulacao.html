@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador - SMLDP</title>
+    <link rel="stylesheet" href="simulacao.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="panel-container">
+        <aside class="sidebar">
+            <div class="logo-panel">🌍 SMLDP</div>
+            <p class="welcome-msg">Olá, <span id="nomeUsuario">Usuário</span>!</p>
+            
+            <form id="formSimulacao">
+                <div class="input-group">
+                    <label for="paisDestino">País de Destino</label>
+                    <select id="paisDestino" required>
+                        <option value="" disabled selected>Selecione um país</option>
+                        <option value="Canadá">Canadá</option>
+                        <option value="Estados Unidos">Estados Unidos</option>
+                        <option value="Portugal">Portugal</option>
+                    </select>
+                </div>
+                <button type="submit" id="btnSimular">Buscar Dados</button>
+                <a href="inicial.html" class="btn-sair-simulador">Voltar</a>
+            </form>
+
+        </aside>
+
+        <main class="main-content">
+            <header class="content-header">
+                <h2>Painel de Simulação</h2>
+                <p>Selecione um país ao lado para carregar os dados atualizados do banco de dados.</p>
+            </header>
+
+            <div class="dashboard-grid">
+                <div class="score-box">
+                    <h3>Índice de Recomendação</h3>
+                    <h2 id="resScore">--</h2>
+                </div>
+
+                <div class="details-grid">
+                    <div class="result-card">
+                        <div class="card-icon">💰</div>
+                        <div>
+                            <p class="card-label">Custo de Vida Médio</p>
+                            <strong id="resCusto">--</strong>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="card-icon">💼</div>
+                        <div>
+                            <p class="card-label">Salário Médio Estimado</p>
+                            <strong id="resSalario">--</strong>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="card-icon">🩺</div>
+                        <div>
+                            <p class="card-label">Qualidade de Vida</p>
+                            <strong id="resQualidade">--</strong>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="card-icon">🛂</div>
+                        <div>
+                            <p class="card-label">Dificuldade de Migração</p>
+                            <strong id="resMigracao">--</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p id="msgStatus"></p>
+        </main>
+    </div>
+
+    <script src="simulacao.js"></script>
+</body>
+</html>
