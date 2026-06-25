@@ -6,6 +6,8 @@ const db = require("./config/database");
 const authRoutes = require("./routes/authRoutes");
 const simulationRoutes = require("./routes/simulationRoutes");
 
+const verificarToken = require("./middleware/authMiddleware");
+
 const app = express();
 const PORT = 3000;
 
@@ -77,7 +79,29 @@ db.serialize(() => {
     `);
 });
 
-// 6. INICIALIZAÇÃO DO SERVIDOR
+app.get("/api/perfil", verificarToken, (req, res) => {
+    // 🌟 Pegando os dados do lugar correto que o seu middleware definiu:
+    console.log("➡️ O que tem no token:", req.usuarioLogado);
+    
+    // Captura o ID de dentro do usuarioLogado
+    const userId = req.usuarioLogado.id || req.usuarioLogado.userId || req.usuarioLogado.user_id; 
+
+    console.log("➡️ ID que vai pro banco:", userId);
+
+    db.get("SELECT nome, idade, sexo, profissao, email FROM users WHERE id = ?", [userId], (err, row) => {
+        if (err) {
+            return res.status(500).json({ success: false, message: "Erro no banco." });
+        }
+        
+        console.log("➡️ Linha encontrada:", row);
+
+        if (!row) {
+            return res.status(404).json({ success: false, message: "Usuário não encontrado." });
+        }
+        
+        res.json({ success: true, usuario: row });
+    });
+});
 app.listen(PORT, () => {
     console.log(`✅ Servidor rodando em http://localhost:${PORT}`);
 });

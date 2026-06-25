@@ -1,158 +1,125 @@
-document.getElementById("nomeUsuario").textContent =
-localStorage.getItem("nome") || "Usuário SMLDP";
+document.addEventListener("DOMContentLoaded", async () => {
+    const token = localStorage.getItem("token");
 
-document.getElementById("emailUsuario").textContent =
-localStorage.getItem("email") || "usuario@email.com";
+    // 1. TRAVA DE SEGURANÇA
+    if (!token) {
+        window.location.href = "login.html";
+        return;
+    }
 
-function editarPerfil(){
+    // 2. BUSCANDO DADOS REAIS DO BANCO
+    try {
+        const resposta = await fetch("http://localhost:3000/api/perfil", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
 
-    const novoNome = prompt(
-        "Digite seu nome:",
-        document.getElementById("nomeUsuario").textContent
-    );
+        const data = await resposta.json();
 
-    if(novoNome){
+        if (data.success) {
+            const usuario = data.usuario;
 
-        localStorage.setItem("nome", novoNome);
+            // Injeta os dados nos seletores do HTML
+            // Pega só o primeiro nome para a saudação lateral
+            const nomeField = document.getElementById("nomeUsuario");
+            if (nomeField) nomeField.textContent = usuario.nome.split(" ")[0]; 
+            
+            // Preenche os cards de perfil (verifique se os IDs batem com seu HTML)
+            if (document.getElementById("perfilNome")) document.getElementById("perfilNome").textContent = usuario.nome;
+            if (document.getElementById("perfilIdade")) document.getElementById("perfilIdade").textContent = `${usuario.idade} anos`;
+            if (document.getElementById("perfilSexo")) document.getElementById("perfilSexo").textContent = usuario.sexo;
+            if (document.getElementById("perfilProfissao")) document.getElementById("perfilProfissao").textContent = usuario.profissao;
+            if (document.getElementById("emailUsuario")) document.getElementById("emailUsuario").textContent = usuario.email;
+        }
+    } catch (erro) {
+        console.error("Erro ao conectar à API de perfil:", erro);
+    }
 
-        document.getElementById("nomeUsuario").textContent =
-        novoNome;
+    // ==========================================
+    // 3. CHECKLIST SALVO NO LOCALSTORAGE
+    // ==========================================
+    const checkboxes = document.querySelectorAll(".checklist input");
+
+    checkboxes.forEach((checkbox, index) => {
+        const salvo = localStorage.getItem("check_" + index);
+
+        if (salvo === "true") {
+            checkbox.checked = true;
+        }
+
+        checkbox.addEventListener("change", () => {
+            localStorage.setItem("check_" + index, checkbox.checked);
+        });
+    });
+
+    // ==========================================
+    // 4. GRÁFICO (CHART.JS)
+    // ==========================================
+    const ctx = document.getElementById("graficoEconomia");
+    if (ctx) {
+        new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"],
+                datasets: [{
+                    label: "Economia (R$)",
+                    data: [3000, 6000, 9000, 13000, 18000, 22500],
+                    borderWidth: 4,
+                    tension: .4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { labels: { color: "white" } }
+                },
+                scales: {
+                    x: { ticks: { color: "white" } },
+                    y: { ticks: { color: "white" } }
+                }
+            }
+        });
+    }
+
+    // ==========================================
+    // 5. ANIMAÇÃO DOS NÚMEROS
+    // ==========================================
+    const numeros = document.querySelectorAll(".stat-card h2");
+
+    numeros.forEach(numero => {
+        const texto = numero.innerText;
+
+        if (!isNaN(parseInt(texto))) {
+            let atual = 0;
+            const alvo = parseInt(texto);
+            const intervalo = setInterval(() => {
+                atual++;
+                numero.innerText = atual;
+                if (atual >= alvo) {
+                    clearInterval(intervalo);
+                    numero.innerText = alvo;
+                }
+            }, 40);
+        }
+    });
+});
+
+// ==========================================
+// 6. FUNÇÕES EXTERNAS (LOGOUT E EDIÇÃO)
+// ==========================================
+function editarPerfil() {
+    const novoNome = prompt("Digite seu nome:", document.getElementById("nomeUsuario").textContent);
+    if (novoNome) {
+        document.getElementById("nomeUsuario").textContent = novoNome;
+        // Nota para o futuro: Para salvar no banco, você precisaria fazer um fetch(PUT/POST) aqui
     }
 }
 
-// Checklist salvo
-
-const checkboxes =
-document.querySelectorAll(".checklist input");
-
-checkboxes.forEach((checkbox,index)=>{
-
-    const salvo =
-    localStorage.getItem("check_"+index);
-
-    if(salvo==="true"){
-        checkbox.checked = true;
-    }
-
-    checkbox.addEventListener("change",()=>{
-
-        localStorage.setItem(
-            "check_"+index,
-            checkbox.checked
-        );
-
-    });
-
-});
-
-// Gráfico
-
-const ctx =
-document.getElementById("graficoEconomia");
-
-new Chart(ctx,{
-
-    type:"line",
-
-    data:{
-
-        labels:[
-            "Jan",
-            "Fev",
-            "Mar",
-            "Abr",
-            "Mai",
-            "Jun"
-        ],
-
-        datasets:[{
-
-            label:"Economia (R$)",
-
-            data:[
-                3000,
-                6000,
-                9000,
-                13000,
-                18000,
-                22500
-            ],
-
-            borderWidth:4,
-
-            tension:.4,
-
-            fill:true
-
-        }]
-    },
-
-    options:{
-
-        responsive:true,
-
-        plugins:{
-
-            legend:{
-                labels:{
-                    color:"white"
-                }
-            }
-        },
-
-        scales:{
-
-            x:{
-                ticks:{
-                    color:"white"
-                }
-            },
-
-            y:{
-                ticks:{
-                    color:"white"
-                }
-            }
-        }
-    }
-});
-
-// Animação dos números
-
-const numeros =
-document.querySelectorAll(".stat-card h2");
-
-numeros.forEach(numero=>{
-
-    const texto = numero.innerText;
-
-    if(!isNaN(parseInt(texto))){
-
-        let atual = 0;
-
-        const alvo = parseInt(texto);
-
-        const intervalo = setInterval(()=>{
-
-            atual++;
-
-            numero.innerText = atual;
-
-            if(atual >= alvo){
-
-                clearInterval(intervalo);
-
-                numero.innerText = alvo;
-            }
-
-        },40);
-    }
-});
-
- function fazerLogout(event) {
+function fazerLogout(event) {
     event.preventDefault();
-    
-    localStorage.removeItem('token'); 
-    
+    localStorage.removeItem('token');
     window.location.href = 'inicial.html';
-} 
+}
