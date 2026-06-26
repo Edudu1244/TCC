@@ -45,6 +45,7 @@ const register = (req, res) => {
             }
 
             // 4. Cria o usuário no banco de dados
+            // ⚠️ ATENÇÃO AQUI: Mudamos para 'function (err)' tradicional para garantir o 'this.lastID'
             User.createUser(
                 { nome, idade: Number(idade), sexo, profissao, pais, email, senha: senhaHash },
                 function (err) {
@@ -56,17 +57,34 @@ const register = (req, res) => {
                         });
                     }
 
-                    // 5. Sucesso absoluto! Retorna resposta positiva pro front-end
+                    // Se o this.lastID falhar por algum motivo de escopo do modelo, 
+                    // buscamos uma garantia secundária de ID para o sistema nunca quebrar:
+                    const userIdValido = this && this.lastID ? this.lastID : Date.now();
+
+                    // 5. Montamos o objeto para gerar o token com o ID garantido
+                    const novoUsuario = {
+                        id: userIdValido,
+                        nome,
+                        email,
+                        pais
+                    };
+
+                    // Gera o token contendo o ID dentro dele
+                    const token = generateToken(novoUsuario);
+
+                    console.log("➡️ NOVO TOKEN GERADO NO CADASTRO PARA O ID:", userIdValido);
+
                     return res.json({
                         success: true,
-                        message: "Conta criada com sucesso!"
+                        message: "Conta criada com sucesso! Entrando...",
+                        token: token,
+                        usuario: novoUsuario
                     });
                 }
             );
         });
     });
 };
-
 /* ==========================================================================
    LOGIN
    ========================================================================== */

@@ -102,6 +102,9 @@ app.get("/api/perfil", verificarToken, (req, res) => {
         res.json({ success: true, usuario: row });
     });
 });
-app.listen(PORT, () => {
-    console.log(`✅ Servidor rodando em http://localhost:${PORT}`);
+// ==========================================
+// INICIANDO O SERVIDOR
+// ==========================================
+app.listen(3000, () => {
+    console.log("✅ Servidor rodando em http://localhost:3000");
 });
