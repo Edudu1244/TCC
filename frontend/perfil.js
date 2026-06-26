@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const nomeField = document.getElementById("nomeUsuario");
             if (nomeField) nomeField.textContent = usuario.nome.split(" ")[0]; 
             
-            // Preenche os cards de perfil (verifique se os IDs batem com seu HTML)
+            // Preenche os cards de perfil
             if (document.getElementById("perfilNome")) document.getElementById("perfilNome").textContent = usuario.nome;
             if (document.getElementById("perfilIdade")) document.getElementById("perfilIdade").textContent = `${usuario.idade} anos`;
             if (document.getElementById("perfilSexo")) document.getElementById("perfilSexo").textContent = usuario.sexo;
@@ -114,7 +114,6 @@ function editarPerfil() {
     const novoNome = prompt("Digite seu nome:", document.getElementById("nomeUsuario").textContent);
     if (novoNome) {
         document.getElementById("nomeUsuario").textContent = novoNome;
-        // Nota para o futuro: Para salvar no banco, você precisaria fazer um fetch(PUT/POST) aqui
     }
 }
 

@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const mensagem = document.getElementById("mensagem");
     const selectPais = document.getElementById("paisAtual"); // Captura o novo select de países
     const temaSalvo = localStorage.getItem("tema");
+    
     if (temaSalvo === "dark") {
         document.body.classList.add("dark");
     }
@@ -55,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 senha: document.getElementById("senha").value.trim()
             };
 
+            // Validações básicas de front-end
             if (
                 !dados.nome ||
                 !dados.idade ||
@@ -82,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             try {
+                // Faz o envio dos dados para a rota do Backend
                 const resposta = await fetch("http://localhost:3000/auth/register", {
                     method: "POST",
                     headers: {
@@ -92,24 +95,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const data = await resposta.json();
 
-                if (resposta.ok || data.success) {
-                    mensagem.innerText = "Conta criada com sucesso!";
+                if (data.success) {
+                    // 🌟 Salva o token e os dados gerados pelo controller no localStorage
+                    if (data.token) {
+                        localStorage.setItem("token", data.token);
+                    }
+                    if (data.usuario) {
+                        localStorage.setItem("usuario", JSON.stringify(data.usuario));
+                    }
+                    
+                    // Exibe a mensagem de sucesso e aguarda 1.5s antes de mudar de página
+                    mensagem.innerText = "Conta criada com sucesso! Redirecionando...";
                     mensagem.style.color = "#6bff95";
 
                     setTimeout(() => {
-                        window.location.href = "login.html";
+                        window.location.href = "inicial.html";
                     }, 1500);
 
                 } else {
-                    mensagem.innerText = data.message || "Erro ao criar conta";
+                    // Caso o backend recuse (ex: email já existe)
+                    mensagem.innerText = data.message;
                     mensagem.style.color = "#ff6b6b";
                 }
 
-            } catch (erro) {
-                mensagem.innerText = "Erro ao conectar com o servidor";
+            } catch (error) {
+                console.error("Erro ao realizar a requisição de cadastro:", error);
+                mensagem.innerText = "Erro ao conectar com o servidor.";
                 mensagem.style.color = "#ff6b6b";
-                console.error("Erro no processo de cadastro:", erro);
             }
         });
     }
-}); 
+});
