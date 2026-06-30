@@ -107,18 +107,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 });
 
-// ==========================================
-// 6. FUNÇÕES EXTERNAS (LOGOUT E EDIÇÃO)
-// ==========================================
-function editarPerfil() {
-    const novoNome = prompt("Digite seu nome:", document.getElementById("nomeUsuario").textContent);
-    if (novoNome) {
-        document.getElementById("nomeUsuario").textContent = novoNome;
-    }
-}
-
 function fazerLogout(event) {
     event.preventDefault();
     localStorage.removeItem('token');
     window.location.href = 'inicial.html';
-}
+} 

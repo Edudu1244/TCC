@@ -230,38 +230,47 @@ a.btn-sair-simulador:hover {
     font-weight: 500;
 }
 
-/* ==========================================================
-   6. REGRAS DO MODO ESCURO (CORRIGIDAS)
-   ========================================================== */
-body.dark {
-    background: linear-gradient(rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.88)), url("img/fundo.jpg") !important;
-    background-size: cover !important;
-    background-attachment: fixed !important;
-}
-
-/* Força a sidebar a escurecer */
-body.dark .sidebar { 
-    background: rgba(0, 0, 0, 0.55) !important; 
-    border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
-}
-
-/* Força os cards de resposta a escurecerem */
-body.dark .result-card { 
-    background: rgba(0, 0, 0, 0.35) !important; 
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-}
-
-/* Força a caixa de seleção a escurecer */
-body.dark .input-group select {
-    background: rgba(0, 0, 0, 0.4) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
 /* RESPONSIVIDADE */
 @media (max-width: 900px) {
     .panel-container { flex-direction: column; }
     .sidebar { width: 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); padding: 30px 20px; }
     .main-content { padding: 30px 20px; }
     .details-grid { grid-template-columns: 1fr; }
+} 
+
+/* ==========================================================
+   6. REGRAS DO MODO ESCURO (DARK MODE)
+   ========================================================== */
+body.dark {
+    background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.88)), url("img/fundo.jpg");
 }
 
+/* Escurece a barra lateral */
+body.dark .sidebar { 
+    background: rgba(0, 0, 0, 0.6); 
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Ajusta o card principal de nota */
+body.dark .score-box {
+    background: rgba(45, 126, 255, 0.1);
+    border: 1px solid rgba(45, 126, 255, 0.2);
+}
+
+/* Escurece os cards de resultados */
+body.dark .result-card { 
+    background: rgba(0, 0, 0, 0.4); 
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Escurece a caixa de seleção de países */
+body.dark .input-group select {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Ajustes para ecrãs muito pequenos (telemóveis) */
+@media (max-width: 600px) {
+    .main-content { padding: 20px 15px; }
+    .content-header h2 { font-size: 28px; }
+}
